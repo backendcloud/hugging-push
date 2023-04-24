@@ -29,7 +29,7 @@ def main(
     print(f"\t- Repo URL: {url}")
 
     latter_repo = github_repo.split("/")[1]
-    directory = f"{latter_repo}"
+    directory = f"work/{latter_repo}/{latter_repo}"
 
     # Sync folder
     commit_url = upload_folder(
