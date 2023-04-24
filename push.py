@@ -11,7 +11,7 @@ def main(
 ):
     print("Syncing with Hugging Face Spaces...")
 
-    if huggingface_repo == "xx":
+    if huggingface_repo == "same_with_github_repo":
         huggingface_repo = github_repo
 
     if "/" not in huggingface_repo:

@@ -8,7 +8,7 @@ branding:
 inputs:
   huggingface_repo:
     type: string
-    default: 'xx'
+    default: 'same_with_github_repo'
   hf_token:
     required: true
   repo_type:
