@@ -6,12 +6,10 @@ branding:
   color: green
 
 inputs:
-  github_repo_id:
-    required: true
+  huggingface_repo:
+    required: false
     type: string
-  huggingface_repo_id:
-    required: true
-    type: string
+    default: ''
   hf_token:
     required: true
   repo_type:
@@ -27,16 +25,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-#    - name: Checkout Action GitHub Repo
-#      uses: actions/checkout@v2
-#      with:
-#        repository: ${{ github.action_repository }}
-#        ref: main/${{ github.action_ref }}
-#        path: ${{ github.action_repository }}
-
     - name: Checkout current Repo
       uses: actions/checkout@v2
-
     - name: Push to Hugging Face
       shell: bash
       run: |
@@ -44,7 +34,7 @@ runs:
         pip install -r requirements.txt
         cd ~
         python ${{ github.action_path }}/push.py \
-          --repo_id ${{ inputs.huggingface_repo_id }} \
+          --repo_id ${{ inputs.huggingface_repo }} \
           --github_repo ${{ github.repository }} \
           --token ${{ inputs.hf_token }} \
           --repo_type ${{ inputs.repo_type }} \
