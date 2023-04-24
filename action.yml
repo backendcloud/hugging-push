@@ -36,7 +36,7 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: 'backendcloud/hugging-push'
-        ref: 'v0.1.1'
+        ref: 'v0.1.2'
         path: cloned_action_repo
 
     - name: Push to Hugging Face
@@ -47,7 +47,8 @@ runs:
         cd ..
         python cloned_action_repo/push.py \
           --repo_id ${{ inputs.huggingface_repo_id }} \
-          --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
+          # --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
+          --directory "${{ github.event.repository.name }}"/"${{ inputs.subdirectory }}" \
           --token ${{ inputs.hf_token }} \
           --repo_type ${{ inputs.repo_type }} \
           --space_sdk ${{ inputs.space_sdk }} \
