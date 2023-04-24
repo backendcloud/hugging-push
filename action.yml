@@ -30,25 +30,28 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v3
-
     - name: Checkout Action GitHub Repo
       uses: actions/checkout@v3
       with:
-        repository: 'backendcloud/hugging-push'
-        ref: 'v0.1.2'
-        path: cloned_action_repo
+        repository: ${{ github.action_repository }}
+        ref: 'v0.1.3'
+        path: ${{ github.action_repository }}
+
+    - name: Checkout current Repo
+      uses: actions/checkout@v3
+      with:
+        repository: ${{ github.repository }}
+        path: ${{ github.repository }}
 
     - name: Push to Hugging Face
       shell: bash
       run: |
-        cd cloned_action_repo
+        cd ${{ github.action_repository }}
         pip install -r requirements.txt
-        cd ..
-        python cloned_action_repo/push.py \
+        cd ../..
+        python ${{ github.action_repository }}/push.py \
           --repo_id ${{ inputs.huggingface_repo_id }} \
-          # --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
-          --directory "${{ github.event.repository.name }}"/"${{ inputs.subdirectory }}" \
+          --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
           --token ${{ inputs.hf_token }} \
           --repo_type ${{ inputs.repo_type }} \
           --space_sdk ${{ inputs.space_sdk }} \
