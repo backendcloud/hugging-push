@@ -1,0 +1,54 @@
+name: Hugging Push
+description: GitHub action that'll push files of the current github code repository to the hugging face space code repository with the same name.
+author: backendcloud
+branding:
+  icon: refresh-cw
+  color: green
+
+inputs:
+  github_repo_id:
+    required: true
+    type: string
+  subdirectory:
+    type: string
+    default: ''
+  huggingface_repo_id:
+    required: true
+    type: string
+  hf_token:
+    required: true
+  repo_type:
+    type: string
+    default: 'space'
+  space_sdk:
+    type: string
+    default: 'gradio'
+  private:
+    type: boolean
+    default: false
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Checkout Action GitHub Repo
+      uses: actions/checkout@v3
+      with:
+        repository: 'backendcloud/hugging-push'
+        ref: 'v0.1.0'
+        path: cloned_action_repo
+
+    - name: Push to Hugging Face
+      shell: bash
+      run: |
+        cd cloned_action_repo
+        pip install -r requirements.txt
+        cd ..
+        python cloned_action_repo/push.py \
+          --repo_id ${{ inputs.huggingface_repo_id }} \
+          --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
+          --token ${{ inputs.hf_token }} \
+          --repo_type ${{ inputs.repo_type }} \
+          --space_sdk ${{ inputs.space_sdk }} \
+          --private ${{ inputs.private }}
