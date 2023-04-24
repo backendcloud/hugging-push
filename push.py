@@ -2,7 +2,7 @@ from huggingface_hub import create_repo, upload_folder, whoami
 
 
 def main(
-    repo_id: str,
+    huggingface_repo: str,
     github_repo: str,
     token: str,
     repo_type: str = "space",
@@ -11,15 +11,18 @@ def main(
 ):
     print("Syncing with Hugging Face Spaces...")
 
-    if "/" not in repo_id:
+    if huggingface_repo == "":
+        huggingface_repo = github_repo 
+
+    if "/" not in huggingface_repo:
         # Case namespace is implicit
         username = whoami(token=token)["name"]
-        repo_id = f"{username}/{repo_id}"
-    print(f"\t- Repo ID: {repo_id}")
+        huggingface_repo = f"{username}/{huggingface_repo}"
+    print(f"\t- Repo ID: {huggingface_repo}")
 
     print(f"\t- Github_repo: {github_repo}")
     url = create_repo(
-        repo_id,
+        huggingface_repo,
         token=token,
         exist_ok=True,
         repo_type=repo_type,
@@ -34,7 +37,7 @@ def main(
     # Sync folder
     commit_url = upload_folder(
         folder_path=directory,
-        repo_id=repo_id,
+        repo_id=huggingface_repo,
         repo_type=repo_type,
         token=token,
         commit_message="Synced repo using 'sync_with_huggingface' Github Action",

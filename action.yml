@@ -34,7 +34,7 @@ runs:
         pip install -r requirements.txt
         cd ~
         python ${{ github.action_path }}/push.py \
-          --repo_id ${{ inputs.huggingface_repo }} \
+          --huggingface_repo ${{ inputs.huggingface_repo }} \
           --github_repo ${{ github.repository }} \
           --token ${{ inputs.hf_token }} \
           --repo_type ${{ inputs.repo_type }} \
