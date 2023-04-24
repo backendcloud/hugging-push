@@ -4,7 +4,6 @@ from huggingface_hub import create_repo, upload_folder, whoami
 def main(
     repo_id: str,
     github_repo: str,
-    subdirectory: str,
     token: str,
     repo_type: str = "space",
     space_sdk: str = "gradio",
@@ -30,7 +29,7 @@ def main(
     print(f"\t- Repo URL: {url}")
 
     latter_repo = github_repo.split("/")[1]
-    directory = f"{latter_repo}/{latter_repo}/{subdirectory}"
+    directory = f"{latter_repo}/{latter_repo}"
 
     # Sync folder
     commit_url = upload_folder(
