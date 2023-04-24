@@ -1,5 +1,5 @@
 name: Hugging Push
-description: GitHub action that'll push files of the current github code repository to the hugging face space code repository with the same name.
+description: GitHub action that'll push files of the current github code repository to the hugging face space code repository.
 author: backendcloud
 branding:
   icon: refresh-cw
@@ -36,7 +36,7 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: 'backendcloud/hugging-push'
-        ref: 'v0.1.0'
+        ref: 'v0.1.1'
         path: cloned_action_repo
 
     - name: Push to Hugging Face
