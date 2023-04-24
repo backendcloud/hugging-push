@@ -30,12 +30,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout Action GitHub Repo
-      uses: actions/checkout@v2
-      with:
-        repository: ${{ github.action_repository }}
-        ref: main/${{ github.action_ref }}
-        path: ${{ github.action_repository }}
+#    - name: Checkout Action GitHub Repo
+#      uses: actions/checkout@v2
+#      with:
+#        repository: ${{ github.action_repository }}
+#        ref: main/${{ github.action_ref }}
+#        path: ${{ github.action_repository }}
 
     - name: Checkout current Repo
       uses: actions/checkout@v2
@@ -46,10 +46,10 @@ runs:
     - name: Push to Hugging Face
       shell: bash
       run: |
-        cd ${{ github.action_repository }}
+        cd ${{ github.action_path }}
         pip install -r requirements.txt
-        cd ../..
-        python ${{ github.action_repository }}/push.py \
+        cd ~
+        python ${{ github.action_path }}/push.py \
           --repo_id ${{ inputs.huggingface_repo_id }} \
           --directory "${{ github.repository }}/${{ inputs.subdirectory }}" \
           --token ${{ inputs.hf_token }} \
