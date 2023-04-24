@@ -7,9 +7,8 @@ branding:
 
 inputs:
   huggingface_repo:
-    required: false
     type: string
-    default: ''
+    default: 'xx'
   hf_token:
     required: true
   repo_type:

@@ -11,8 +11,8 @@ def main(
 ):
     print("Syncing with Hugging Face Spaces...")
 
-    if huggingface_repo == "":
-        huggingface_repo = github_repo 
+    if huggingface_repo == "xx":
+        huggingface_repo = github_repo
 
     if "/" not in huggingface_repo:
         # Case namespace is implicit
