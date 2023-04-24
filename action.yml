@@ -39,9 +39,6 @@ runs:
 
     - name: Checkout current Repo
       uses: actions/checkout@v2
-      with:
-        repository: ${{ github.repository }}
-        path: ${{ github.repository }}
 
     - name: Push to Hugging Face
       shell: bash
